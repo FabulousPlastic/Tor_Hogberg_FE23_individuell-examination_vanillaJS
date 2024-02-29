@@ -69,3 +69,27 @@ document.getElementById('prev').addEventListener('click', () => {
         updateCelestialInfo(currentIndex);
     }
 });
+
+function updateCelestialInfo(index) {
+    const body = bodies[index];
+    const infoDiv = document.getElementById('celestial-info');
+    const celestialDiv = document.getElementById('celestial-body');
+
+    // Update the celestial body class for different backgrounds
+    celestialDiv.className = `celestial-body ${body.type.toLowerCase()}`; // e.g., 'sun', 'planet'
+
+    // Animate "travel" by scaling down and fading out the info
+    celestialDiv.style.transform = 'scale(0.5)';
+    infoDiv.classList.replace('info-shown', 'info-hidden');
+
+    // After "travel", update the info and scale back up
+    setTimeout(() => {
+        infoDiv.innerHTML = `<h2>${body.name} (${body.latinName})</h2>
+                             <p>Type: ${body.type}</p>
+                             <p>Rotation Period: ${body.rotation}</p>`;
+        celestialDiv.style.transform = 'scale(1)';
+        infoDiv.classList.replace('info-hidden', 'info-shown');
+    }, 2000); // Adjust time based on your transition
+}
+
+// Update your next and previous button event listeners as needed to handle the new animations
