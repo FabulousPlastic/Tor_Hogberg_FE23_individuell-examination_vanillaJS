@@ -6,19 +6,12 @@ async function getApiKey() {
 
     if (response.ok) {
         const data = await response.json();
-        return data.key;
+        console.log(data);
+        return data.key; // Make sure this matches the actual key name in the response
     } else {
         throw new Error('Failed to retrieve API key');
     }
 }
-
-// Use the function and log the API key
-getApiKey().then(apiKey => {
-    console.log('API Key:', apiKey);
-}).catch(error => {
-    console.error('Error:', error);
-});
-
 
 // Function to fetch celestial bodies using the API key
 async function fetchBodies(apiKey) {
@@ -31,18 +24,21 @@ async function fetchBodies(apiKey) {
 
     if (response.ok) {
         const bodies = await response.json();
-        return bodies; // This should contain the celestial bodies
+        console.log(bodies);
+        return bodies.bodies; // Adjust this based on the actual structure of your API response
     } else {
         throw new Error('Failed to retrieve celestial bodies');
     }
 }
 
-// Main function to get the API key and then fetch and log the celestial bodies
+// Modify your main function to use the fetched bodies
+let bodies = []; // Initialize an empty array for celestial bodies
+
 async function main() {
     try {
         const apiKey = await getApiKey();
-        const bodies = await fetchBodies(apiKey);
-        console.log('Celestial Bodies:', bodies);
+        bodies = await fetchBodies(apiKey); // Now 'bodies' contains the array from the API
+        updateCelestialInfo(0); // Initialize with the first celestial body
     } catch (error) {
         console.error('Error:', error);
     }
@@ -50,12 +46,6 @@ async function main() {
 
 // Execute the main function
 main();
-
-
-
-
-let currentIndex = 0; // Start at the first celestial body
-const bodies = [ /* Your array of celestial bodies */ ];
 
 function updateCelestialInfo(index) {
     const body = bodies[index];
@@ -65,6 +55,7 @@ function updateCelestialInfo(index) {
                          <p>Rotation Period: ${body.rotation}</p>`;
 }
 
+let currentIndex = 0; // Start at the first celestial body
 document.getElementById('next').addEventListener('click', () => {
     if (currentIndex < bodies.length - 1) {
         currentIndex++;
@@ -78,10 +69,3 @@ document.getElementById('prev').addEventListener('click', () => {
         updateCelestialInfo(currentIndex);
     }
 });
-
-// Initialize with the first celestial body
-updateCelestialInfo(currentIndex);
-
-
-
-
