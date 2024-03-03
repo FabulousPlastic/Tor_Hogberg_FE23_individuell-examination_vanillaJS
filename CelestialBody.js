@@ -1,7 +1,8 @@
 // CelestialBody.js
 export function createCelestialBody(body, index) {
-    const baseDistance = body.distance / 150000;
-    const distanceIncrement = 100;
+    const baseDistance = (body.distance) / 150000; // Base distance from the Sun in pixels
+    const distanceIncrement = 100; // Increment per planet to keep distances reasonable but distinguishable
+
     const sizeScale = 10;
     const size = Math.sqrt(body.circumference) / sizeScale;
 
@@ -11,13 +12,15 @@ export function createCelestialBody(body, index) {
     planetDiv.style.width = `${size}px`;
     planetDiv.style.height = `${size}px`;
     planetDiv.style.position = 'absolute';
-    planetDiv.style.left = `${baseDistance + index * distanceIncrement}px`;
+    planetDiv.style.left = `${baseDistance + index * distanceIncrement}px`; // Horizontal position based on index
 
+    // Apply conditional styling based on the celestial body type
     if (body.type.toLowerCase() === 'planet') {
-        planetDiv.style.backgroundColor = '#8888ff';
+        planetDiv.style.backgroundColor = '#8888ff'; // Example color for planets
     } else if (body.type.toLowerCase() === 'star') {
-        planetDiv.style.backgroundColor = '#ffff00';
+        planetDiv.style.backgroundColor = '#ffff00'; // Example color for stars
     }
+
     document.getElementById('space-view').appendChild(planetDiv);
 }
 
@@ -28,20 +31,15 @@ export function updateCelestialInfo(bodies, index) {
 
     infoDiv.innerHTML = `<h2>${body.name} (${body.latinName})</h2>
                          <p>Type: ${body.type}</p>
-                         <p>Rotation Period: ${body.rotation} days</p>`;
+                         <p>Rotation Period: ${body.rotation} days</p>
+                         <p>Distance from Sun: ${body.distance.toLocaleString()} km</p>`; // Add more details as needed
+
     celestialBodies.forEach((div, idx) => {
         div.style.opacity = idx === index ? 1 : 0.2;
-        div.style.zIndex = idx === index ? 10 : 1;
-    });
-    scrollToPlanet(index);
-}
-
-function scrollToPlanet(index) {
-    const spaceView = document.getElementById('space-view');
-    const planetDiv = document.getElementById(`body-${index}`);
-    const scrollPosition = planetDiv.offsetLeft + planetDiv.offsetWidth / 2 - spaceView.offsetWidth / 2;
-    spaceView.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
+        if (idx === index) {
+            div.style.zIndex = 10; // Bring to front
+        } else {
+            div.style.zIndex = 1; // Send to back
+        }
     });
 }
