@@ -26,8 +26,10 @@ body, html {
     position: relative;
     overflow-x: scroll;
     white-space: nowrap;
-    height: 200px;
+    height: 100%;
     perspective: 1px;
+    display: flex;
+    align-items: center;
 }
 
 .parallax-layer {
@@ -45,7 +47,7 @@ body, html {
     content: "";
     display: block;
     position: absolute;
-    width: 4000%; /* Ensuring enough stars across the entire scroll */
+    width: 3000%; /* Ensuring enough stars across the entire scroll */
     height: 100%;
     background: transparent;
     background-image: 
@@ -61,24 +63,27 @@ body, html {
 .celestial-body {
     border-radius: 50%;
     background-size: cover;
-    transition: transform 4s, opacity 4s; 
-}
-
-#sun {
-    width: 50px;
-    height: 50px;
-    background-color: yellow;
-    border-radius: 50%;
-    position: absolute;
-    left: 20px; 
+    transition: transform 2s, opacity 2s; 
+    z-index: 20;
 }
 
 
-/* Dynamic sizing and coloring based on type */
-.planet {
-    background-color: #8888ff; /* Example color for planets */
+/* General styles for all planets */
+.celestial-body.planet {
+ 
+    background-size: cover;
 }
-.star {
+
+/* Specific styles for each planet */
+.celestial-body.merkurius { background-image: radial-gradient(circle, #fbf7f7 0%, #b3b3b3 100%); }
+.celestial-body.venus { background-image: radial-gradient(circle, #fff0b3 0%, #f4be52 100%); }
+.celestial-body.jorden { background-image: radial-gradient(circle, #6db3f2 0%, #021e3b 100%); }
+.celestial-body.mars { background-image: radial-gradient(circle, #ff9999 0%, #f30404 100%); }
+.celestial-body.jupiter { background-image: radial-gradient(circle, #e2c290 0%, #f09709 100%); }
+.celestial-body.saturnus { background-image: radial-gradient(circle, #fdf4c4 0%, #f4e7a3 100%); }
+.celestial-body.uranus { background-image: radial-gradient(circle, #b0e0e6 0%, #93e0e3 100%); }
+.celestial-body.neptunus { background-image: radial-gradient(circle, #5d8aa8 0%, #2d62a3 100%); }
+.celestial-body.star {
     background-color: #ffff00; /* Example color for stars */
     box-shadow: 0 0 30px #ffff00; /* Glowing effect */
 }
@@ -86,8 +91,8 @@ body, html {
 #celestial-info {
     width: 300px; /* Set fixed width for the info box */
     position: absolute;
-    bottom: 10px;
-    left: 50%;
+    bottom: 5%;
+    left: 80%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.8); /* Semi-transparent */
     color: #000;
