@@ -6,7 +6,7 @@ async function getApiKey() {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);//Kontrollerade vad som returnerades...
+        console.log(data); //Kontrollerade vad som returnerades...
         return data.key; // för att kunna veta att det var "key" och inte ApiKey eller ngt annat.
     } else {
         throw new Error('Failed to retrieve API key');
@@ -24,48 +24,41 @@ async function fetchBodies(apiKey) {
 
     if (response.ok) {
         const bodies = await response.json();
-        console.log(bodies);//samma som ovan, ville kolla på hur det som returnerades såg ut.
+        console.log(bodies); //samma som ovan, ville kolla på hur det som returnerades såg ut.
         return bodies.bodies;
     } else {
         throw new Error('Failed to retrieve bodies');
     }
 }
 
-// Modify your main function to use the fetched bodies
+// main function 
 let bodies = []; // Initialize an empty array for celestial bodies
-
-async function main() {
-    try {
-        const apiKey = await getApiKey();
-        bodies = await fetchBodies(apiKey); // 'bodies' contains the array from the API
-        bodies.forEach((body, index) => {
-            createCelestialBody(body, index); // Create visual representation for each body
-        });
-        updateCelestialInfo(0); // Initialize with the first celestial body
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
+let currentIndex = 0; // Start at the first celestial body
 
 function createCelestialBody(body, index) {
-    const sizeScale = 10; // Adjust this scale as needed
-    const size = Math.sqrt(body.circumference) / sizeScale; // Simplified example
+    const baseDistance = (body.distance) / 150000; // Base distance from the Sun in pixels
+    const distanceIncrement = 100; // Increment per planet to keep distances reasonable but distinguishable
+
+    const sizeScale = 10;
+    const size = Math.sqrt(body.circumference) / sizeScale;
+
     const planetDiv = document.createElement('div');
     planetDiv.className = `celestial-body ${body.type.toLowerCase()}`;
     planetDiv.id = `body-${index}`;
     planetDiv.style.width = `${size}px`;
     planetDiv.style.height = `${size}px`;
+    planetDiv.style.position = 'absolute';
+    planetDiv.style.left = `${baseDistance + index * distanceIncrement}px`; // Horizontal position based on index
 
-    // Change the color based on the type of the celestial body
+    // Apply conditional styling based on the celestial body type
     if (body.type.toLowerCase() === 'planet') {
-        planetDiv.style.backgroundColor = '#8888ff'; // Example for planets
+        planetDiv.style.backgroundColor = '#8888ff'; // Example color for planets
     } else if (body.type.toLowerCase() === 'star') {
-        planetDiv.style.backgroundColor = '#ffff00'; // Example for stars
-    } // Add more conditions for different types
+        planetDiv.style.backgroundColor = '#ffff00'; // Example color for stars
+    }
 
     document.getElementById('space-view').appendChild(planetDiv);
 }
-
 
 function updateCelestialInfo(index) {
     const body = bodies[index];
@@ -87,6 +80,46 @@ function updateCelestialInfo(index) {
             div.style.zIndex = 1; // Send to back
         }
     });
+
+    scrollToPlanet(index); // Ensure this is correctly placed to call after updating info
+}
+
+function scrollToPlanet(index) {
+    const spaceView = document.getElementById('space-view');
+    const planetDiv = document.getElementById(`body-${index}`);
+    const scrollPosition = planetDiv.offsetLeft + planetDiv.offsetWidth / 2 - spaceView.offsetWidth / 2;
+
+    // Smooth scroll to the planet
+    spaceView.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+    });
+}
+
+function updateParallax() {
+    const spaceView = document.getElementById('space-view');
+    const scrollLeft = spaceView.scrollLeft;
+    document.querySelectorAll('.parallax-layer').forEach(layer => {
+        const depth = parseFloat(layer.style.getPropertyValue('--depth'));
+        const movement = -(scrollLeft * depth);
+        layer.style.transform = `translateX(${movement}px) scale(calc(1 + ${depth}))`;
+    });
+}
+
+// Attach the parallax update function to the scroll event of #space-view
+document.getElementById('space-view').addEventListener('scroll', updateParallax);
+
+async function main() {
+    try {
+        const apiKey = await getApiKey();
+        bodies = await fetchBodies(apiKey); // 'bodies' contains the array from the API
+        bodies.forEach((body, index) => {
+            createCelestialBody(body, index); // Create visual representation for each body
+        });
+        updateCelestialInfo(0); // Initialize with the first celestial body
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 // Corrected event listeners for navigation buttons
@@ -104,6 +137,4 @@ document.getElementById('prev').addEventListener('click', () => {
     }
 });
 
-// Ensure this line is outside of the main function to avoid resetting currentIndex on each call
-let currentIndex = 0; // Start at the first celestial body
 main(); // Call main to initialize the page with data

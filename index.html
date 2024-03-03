@@ -8,8 +8,12 @@
 </head>
 <body>
     <div id="space-view">
+        <div class="parallax-layer" style="--depth: 0.2;"></div> <!-- Farthest layer, slowest -->
+        <div class="parallax-layer" style="--depth: 0.5;"></div> <!-- Middle layer -->
+        <div class="parallax-layer" style="--depth: 1;"></div>   <!-- Nearest layer, fastest -->
         <!-- Planets will be inserted here by JavaScript -->
     </div>
+    
     <div id="celestial-info">
         <!-- Information about the celestial body will be dynamically inserted here -->
     </div>
@@ -17,6 +21,6 @@
     <button id="next">Next</button>
     
     
-    <script src="script.js"></script> <!-- Link to your JavaScript file -->
+    <script type="module" src="main.js"></script><!-- Link to your JavaScript file -->
 </body>
 </html>
