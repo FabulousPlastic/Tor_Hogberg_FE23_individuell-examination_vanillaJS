@@ -1,50 +1,14 @@
-#space-view {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 2s; /* Smooth transition for simulating space travel */
-}
-
 .celestial-body {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* Makes the div circular, resembling a planet or star */
-    background-size: cover;
-    transition: transform 2s; /* Smooth transformation during "travel" */
+    border-radius: 50%; /* Makes the div circular, resembling a planet */
+    background-color: #ffcc00; /* Default to a sun-like color; change based on body type */
+    transition: transform 2s, opacity 2s; /* Smooth transformation and fading */
 }
 
-.sun {
-    background-image: url('path/to/your/sun/image.jpg'); /* Replace with your sun image */
-    animation: pulsate 5s infinite;
+/* You can add specific classes for different types of bodies if needed */
+.planet {
+    background-color: #8888ff; /* Example color for planets */
 }
 
-/* Add classes for other celestial bodies as needed, changing the background-image */
-
-@keyframes pulsate {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-#celestial-info {
-    position: absolute;
-    bottom: 20px;
-    background: rgba(255, 255, 255, 0.5); /* Semi-transparent */
-    color: black;
-    padding: 20px;
-    border-radius: 10px;
-    transition: opacity 1.5s;
-}
-
-.info-hidden {
-    opacity: 0;
-}
-
-.info-shown {
-    opacity: 1;
+.star {
+    background-color: #ffff00; /* Example color for stars */
 }
