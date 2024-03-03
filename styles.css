@@ -1,14 +1,90 @@
-.celestial-body {
-    border-radius: 50%; /* Makes the div circular, resembling a planet */
-    background-color: #ffcc00; /* Default to a sun-like color; change based on body type */
-    transition: transform 2s, opacity 2s; /* Smooth transformation and fading */
+/* .celestial-body {
+    border-radius: 50%;
+    background-color: #ffcc00;
+    transition: transform 2s, opacity 2s;
 }
 
 /* You can add specific classes for different types of bodies if needed */
-.planet {
-    background-color: #8888ff; /* Example color for planets */
+/* .planet {
+    background-color: #8888ff; 
 }
 
 .star {
-    background-color: #ffff00; /* Example color for stars */
+    background-color: #ffff00;
+} */ 
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Space-like background */
 }
+
+#space-view {
+    position: relative;
+    width: 100%;
+    height: 80%; /* Adjust based on your preference */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.celestial-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Makes the div circular */
+    transition: transform 2s, opacity 2s; /* Smooth transformation and fading */
+    position: absolute; /* Allows overlapping and positioning */
+}
+
+/* Dynamic sizing and coloring based on type */
+.planet {
+    background-color: #8888ff; /* Example color for planets */
+}
+.star {
+    background-color: #ffff00; /* Example color for stars */
+    box-shadow: 0 0 30px #ffff00; /* Glowing effect */
+}
+
+#celestial-info {
+    width: 300px; /* Set fixed width for the info box */
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent */
+    color: #000;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: opacity 1.5s;
+    z-index: 20; /* Ensure it's above other elements */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+#prev, #next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#prev { left: 20px; }
+#next { right: 20px; }
