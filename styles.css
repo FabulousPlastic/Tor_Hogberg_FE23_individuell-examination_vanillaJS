@@ -1,26 +1,70 @@
-/* .celestial-body {
-    border-radius: 50%;
-    background-color: #ffcc00;
-    transition: transform 2s, opacity 2s;
-}
 
-/* You can add specific classes for different types of bodies if needed */
-/* .planet {
-    background-color: #8888ff; 
-}
-
-.star {
-    background-color: #ffff00;
-} */ 
 
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
-    font-family: 'Arial', sans-serif;
-    background-color: #000; /* Space-like background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.space-window {
+    position: relative;
+    width: 95dvw; /* Adjust based on your preference */
+    height: 95dvh; /* Adjust based on your preference */
+    border-radius: 20px; /* Adjust for rounded corners */
+    overflow: hidden;
+}
+
+.frame {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    border: 3px solid #2e3d55; /* Dark blue-grey, similar to the image */
+}
+
+.outer-frame {
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    border-width: 10px;
+    border-radius: 15px;
+}
+
+.inner-frame {
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    border-width: 6px;
+    border-radius: 10px;
+}
+
+.content-frame {
+    top: 35px;
+    right: 35px;
+    bottom: 35px;
+    left: 35px;
+    border-width: 2px;
+    border-radius: 5px;
+    overflow:hidden;
+}
+
+.content {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: white; /* Text color */
+    padding: 20px; /* Space for content inside the content area */
+    box-sizing: border-box;
+    text-align: center;
+    overflow-x: auto;
+}   
+
+
 
 #space-view {
     position: relative;
@@ -40,14 +84,14 @@ body, html {
     bottom: 0;
     transform-origin: left center;
     transform: scale(calc(1 + var(--depth)));
-    z-index: 2;
+    z-index: 1;
 }
 
 .parallax-layer::before {
     content: "";
     display: block;
     position: absolute;
-    width: 3000%; /* Ensuring enough stars across the entire scroll */
+    width: 4500%; /* Ensuring enough stars across the entire scroll */
     height: 100%;
     background: transparent;
     background-image: 
@@ -56,26 +100,25 @@ body, html {
     background-position: 0 0, 50px 50px;
     background-size: 100px 100px;
     will-change: transform; /* For better performance on animations */
-    z-index: 2;
+    z-index: 1;
 }
 
 
 .celestial-body {
     border-radius: 50%;
-    background-size: cover;
-    transition: transform 2s, opacity 2s; 
-    z-index: 20;
+    transition: transform 1s, opacity 1s; 
+    z-index: 2;
 }
 
 
 /* General styles for all planets */
 .celestial-body.planet {
- 
-    background-size: cover;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Specific styles for each planet */
-.celestial-body.merkurius { background-image: radial-gradient(circle, #fbf7f7 0%, #b3b3b3 100%); }
+.celestial-body.merkurius { background-image: radial-gradient(circle, #fbf7f7 0%, #b3b3b3 100%); 
+    animation: rotatePlanet 10s linear infinite;}
 .celestial-body.venus { background-image: radial-gradient(circle, #fff0b3 0%, #f4be52 100%); }
 .celestial-body.jorden { background-image: radial-gradient(circle, #6db3f2 0%, #021e3b 100%); }
 .celestial-body.mars { background-image: radial-gradient(circle, #ff9999 0%, #f30404 100%); }
@@ -88,7 +131,7 @@ body, html {
     box-shadow: 0 0 30px #ffff00; /* Glowing effect */
 }
 
-#celestial-info {
+#info-square {
     width: 300px; /* Set fixed width for the info box */
     position: absolute;
     bottom: 5%;
@@ -96,11 +139,12 @@ body, html {
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.8); /* Semi-transparent */
     color: #000;
-    padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    transition: opacity 1.5s;
-    z-index: 20; /* Ensure it's above other elements */
+    transition: opacity 1s;
+    z-index: 3; /* Ensure it's above other elements */
+    text-wrap: wrap;
+    padding: 2vw;
 }
 
 button {
@@ -112,6 +156,7 @@ button {
     cursor: pointer;
     margin: 10px;
     transition: background-color 0.3s, color 0.3s;
+    z-index: 99;
 }
 
 button:hover {

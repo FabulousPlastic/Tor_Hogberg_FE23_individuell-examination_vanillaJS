@@ -1,6 +1,6 @@
 export function createCelestialBody(body, index) {
     const baseDistance = (body.distance) / 100000; // Base distance from the Sun in pixels
-    const distanceIncrement = 500; // Increment per planet to keep distances reasonable but distinguishable
+    const distanceIncrement = 150; // Increment per planet to keep distances reasonable but distinguishable
 
     const sizeScale = 2;
     const size = Math.sqrt(body.circumference) / sizeScale;
@@ -12,7 +12,7 @@ export function createCelestialBody(body, index) {
     planetDiv.style.width = `${size}px`;
     planetDiv.style.height = `${size}px`;
     planetDiv.style.position = 'absolute';
-    planetDiv.style.left = `${baseDistance + distanceIncrement / index}px`; // Horizontal position based on index
+    planetDiv.style.left = `${baseDistance + distanceIncrement * (index *8)}px`; // Horizontal position based on index
 
     document.getElementById('space-view').appendChild(planetDiv);
 }

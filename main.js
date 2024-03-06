@@ -20,24 +20,6 @@ async function main() {
     }
 }
 
-// Event listeners remain the same
-// document.getElementById('next').addEventListener('click', () => {
-//     if (currentIndex < bodies.length - 1) {
-//         currentIndex++;
-//         updateCelestialInfo(bodies, currentIndex);
-//         scrollToPlanet(currentIndex); // Ensure this is correctly placed to call after updating info
-//     }
-// });
-
-// document.getElementById('prev').addEventListener('click', () => {
-//     if (currentIndex > 0) {
-//         currentIndex--;
-//         updateCelestialInfo(bodies, currentIndex);
-//         scrollToPlanet(currentIndex); // Ensure this is correctly placed to call after updating info
-//     }
-// });
-// Update this part inside your main.js
-
 document.getElementById('next').addEventListener('click', () => {
     if (currentIndex < bodies.length - 1) {
         currentIndex++;
