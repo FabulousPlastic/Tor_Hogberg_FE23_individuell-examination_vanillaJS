@@ -3,7 +3,8 @@ import { getApiKey, fetchBodies } from './API.js';
 import { createCelestialBody } from './CelestialBody.js';
 import { updateParallax, scrollToPlanet } from './Parallax.js';
 import { updateCelestialInfo } from './CelestialInfo.js';
-import { setupSearch } from './Search.js'; // Import the search module
+import { setupSearch } from './Search.js'; // Assuming you have this from earlier
+import { setupDistanceCounter } from './DistanceCounter.js'; // Importing the new module
 
 let bodies = [];
 let currentIndex = 0;
@@ -15,12 +16,17 @@ async function main() {
         bodies.forEach((body, index) => {
             createCelestialBody(body, index);
         });
-        updateCelestialInfo(bodies, 0);
-        setupSearch(bodies, updateCelestialInfo, scrollToPlanet); // Initialize the search functionality
+        updateCelestialInfo(bodies, currentIndex);
+        setupSearch(bodies, updateCelestialInfo, scrollToPlanet);
+        setupDistanceCounter('space-view', 'distance-to-sun', 1000000); // Assuming 1,000,000 km as the maximum distance
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
+document.getElementById('space-view').addEventListener('scroll', updateParallax);
+
+
 
 document.getElementById('space-view').addEventListener('scroll', updateParallax);
 

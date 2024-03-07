@@ -17,17 +17,19 @@
                             <div class="parallax-layer" style="--depth: 0.2;"></div> <!-- Farthest layer, slowest -->
                             <div class="parallax-layer" style="--depth: 0.5;"></div> <!-- Middle layer -->
                             <div class="parallax-layer" style="--depth: 1;"></div>   <!-- Nearest layer, fastest -->
-                        </div>   
+                            <!-- Himlakroppar genereras här-->
+                        </div> 
                         <div id="info-square"></div>
                         <button id="prev"></button>
+                        <button id="next">Merkurius</button> 
                         <input type="text" id="planet-search" placeholder="Enter target planet...">
                         <button id="search-button">Go</button>
+                        <div id="distance-to-sun">Distance to Sun: 0 km</div>
                         <div id="search-error" style="color: red; display: none;">It's too dangerous to go there! <br> (or at least I don't know where that is)</div>
-                        <button id="next">Merkurius</button>    
+                       
                     </div>
             </div>
         </div>
     </div>
-    <script type="module" src="main.js"></script><!-- Link to your JavaScript file -->
-</body>
+    <script type="module" src="main.js"></script>
 </html>
