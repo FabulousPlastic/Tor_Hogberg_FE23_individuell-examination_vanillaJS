@@ -11,20 +11,20 @@
         <div class="frame outer-frame">
             <div class="frame inner-frame">
                 <div class="frame content-frame">
-                    <div class="content"                
+                    <div class="content"> 
+
                         <div id="space-view">
                             <div class="parallax-layer" style="--depth: 0.2;"></div> <!-- Farthest layer, slowest -->
                             <div class="parallax-layer" style="--depth: 0.5;"></div> <!-- Middle layer -->
                             <div class="parallax-layer" style="--depth: 1;"></div>   <!-- Nearest layer, fastest -->
-                            </div>
-               
-                            <div id="info-square"></div>
-                            <button id="prev"></button>
-                            <input type="text" id="planet-search" placeholder="Search for a planet...">
-
-                            
-                            <button id="next">Merkurius</button>
-                          </div>
+                        </div>   
+                        <div id="info-square"></div>
+                        <button id="prev"></button>
+                        <input type="text" id="planet-search" placeholder="Enter target planet...">
+                        <button id="search-button">Go</button>
+                        <div id="search-error" style="color: red; display: none;">It's too dangerous to go there! <br> (or at least I don't know where that is)</div>
+                        <button id="next">Merkurius</button>    
+                    </div>
             </div>
         </div>
     </div>

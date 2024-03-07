@@ -172,3 +172,57 @@ button:hover {
 
 #prev { left: 20px; }
 #next { right: 20px; }
+
+/* Search Container Styles */
+#search-container {
+    z-index: 10; /* Adjust based on your layout's needs */
+    position: absolute;
+    top: 10px; /* Adjust for best fit */
+    left: 50%;
+    transform: translateX(-50%); /* Center in the space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#search-error {
+    position: relative;
+    top: 60px; /* Directly below the search bar */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+/* Search Input Styles */
+#planet-search {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd; /* Light grey border */
+    border-radius: 4px; /* Rounded borders */
+    width: 200px; /* Fixed width, adjust as necessary */
+    z-index: 3;
+}
+
+/* Focus state for Search Input */
+#planet-search:focus {
+    outline: none; /* Removes the outline */
+    border-color: #4A90E2; /* Highlight color */
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5); /* Soft glow */
+}
+
+/* Search Button Styles */
+#search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4A90E2; /* Matching highlight color */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Rounded borders */
+    cursor: pointer; /* Changes cursor to a pointer */
+}
+
+#search-button:hover {
+    background-color: #357ABD; /* Darker shade for hover effect */
+}

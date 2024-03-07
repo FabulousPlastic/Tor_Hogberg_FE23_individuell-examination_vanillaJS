@@ -1,15 +1,32 @@
 // Search.js
-export function setupPlanetSearch(bodies, updateDisplayFunction) {
+export function setupSearch(bodies, updateCelestialInfo, scrollToPlanet) {
     const searchInput = document.getElementById('planet-search');
+    const searchButton = document.getElementById('search-button');
+    const searchError = document.getElementById('search-error');
 
-    searchInput.addEventListener('input', (event) => {
-        const searchText = event.target.value.toLowerCase();
+    const performSearch = () => {
+        const searchText = searchInput.value.toLowerCase();
+        const matchingIndices = bodies.map((body, index) => 
+            body.name.toLowerCase().includes(searchText) || 
+            body.latinName.toLowerCase().includes(searchText) ? index : -1
+        ).filter(index => index !== -1);
 
-        // Find the first planet that matches the search text
-        const foundIndex = bodies.findIndex(body => body.name.toLowerCase().includes(searchText));
+        if (matchingIndices.length === 1) {
+            const currentIndex = matchingIndices[0];
+            updateCelestialInfo(bodies, currentIndex);
+            scrollToPlanet(currentIndex);
+            searchError.style.display = 'none'; // Hide error message
+        } else {
+            searchError.style.display = 'block'; // Show error message
+        }
+        
+        searchInput.value = ''; // Reset the search field
+    };
 
-        if (foundIndex >= 0) {
-            updateDisplayFunction(bodies, foundIndex);
+    searchButton.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            performSearch();
         }
     });
 }

@@ -2,7 +2,8 @@
 import { getApiKey, fetchBodies } from './API.js';
 import { createCelestialBody } from './CelestialBody.js';
 import { updateParallax, scrollToPlanet } from './Parallax.js';
-import { updateCelestialInfo } from './CelestialInfo.js'; // Import from new module
+import { updateCelestialInfo } from './CelestialInfo.js';
+import { setupSearch } from './Search.js'; // Import the search module
 
 let bodies = [];
 let currentIndex = 0;
@@ -14,11 +15,16 @@ async function main() {
         bodies.forEach((body, index) => {
             createCelestialBody(body, index);
         });
-        updateCelestialInfo(bodies, 0); // Usage remains the same
+        updateCelestialInfo(bodies, 0);
+        setupSearch(bodies, updateCelestialInfo, scrollToPlanet); // Initialize the search functionality
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
+document.getElementById('space-view').addEventListener('scroll', updateParallax);
+
+
 
 document.getElementById('next').addEventListener('click', () => {
     if (currentIndex < bodies.length - 1) {
