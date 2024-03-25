@@ -18,7 +18,7 @@ async function main() {
         });
         updateCelestialInfo(bodies, currentIndex);
         setupSearch(bodies, updateCelestialInfo, scrollToPlanet);
-        setupDistanceCounter('space-view', 'distance-to-sun', 1000000); // Assuming 1,000,000 km as the maximum distance
+        setupDistanceCounter('space-view', 'distance-to-sun', 3000000000); // Assuming 1,000,000 km as the maximum distance
     } catch (error) {
         console.error('Error:', error);
     }
