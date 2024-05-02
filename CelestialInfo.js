@@ -1,16 +1,17 @@
 
-export function updateCelestialInfo(bodies, index) {
-    const body = bodies[index];
+export function updateCelestialInfo(bodies, currentIndex) {
+    const body = bodies[currentIndex];
     const infoDiv = document.getElementById('info-square');
 
     infoDiv.innerHTML = `
-    <h2>${body.name} (${body.latinName})</h2>
+    <h2>${body.name}</h2>
    
     <p>För mer fakta: <span class="more-info">Klicka här!</span></p>
 `;
 
     document.querySelector('.more-info').addEventListener('click', () => displayModal(body));
 }
+
 function displayModal(body) {
     // Create modal container
     const modal = document.createElement('div');
@@ -46,12 +47,12 @@ function displayModal(body) {
     };
 
     // Function to close and clean up modal
-    // function closeModal() {
-    //     modal.style.display = 'none'; // Hide modal
-    //     modal.remove(); // Remove modal from DOM after hiding
-    //     modal.onclick = null; // Remove event listener
-    //     closeButton.onclick = null; // Remove close button event listener
-    // }
+    function closeModal() {
+        modal.style.display = 'none'; // Hide modal
+        modal.remove(); // Remove modal from DOM after hiding
+        modal.onclick = null; // Remove event listener
+        closeButton.onclick = null; // Remove close button event listener
+    }
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
