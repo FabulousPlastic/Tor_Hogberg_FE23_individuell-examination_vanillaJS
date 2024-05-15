@@ -22,6 +22,9 @@ export function createCelestialBody(body, index) {
     planetDiv.className = `celestial-body ${body.type.toLowerCase()} ${body.name.toLowerCase()}`;
     planetDiv.id = `body-${index}`;
 
+    //Mars actual distance 228 000 000 km
+    //Venus actual distance 108 200 000 km
+
     // Apply CSS styles to position and size the celestial body using dynamic viewport units.
     planetDiv.style.width = `${size}dvw`;
     planetDiv.style.maxWidth = `${70 + (size / 10)}dvw`;

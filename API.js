@@ -30,11 +30,19 @@ export async function fetchBodies(apiKey) {
     // Check if the HTTP response status is "OK".
     if (response.ok) {
         // Parse the JSON body of the response to get the celestial bodies data.
-        const bodies = await response.json();
-        console.log(bodies); // Log the bodies data for debugging purposes.
-        return bodies.bodies; // Return the array of celestial bodies from the parsed JSON.
+        let bodies = await response.json();
+
+        // Hardcoded corrections
+        bodies.bodies.forEach(body => {
+            if (body.name.toLowerCase() === 'mars') {
+                body.distance = 228000000;  // Correct distance for Mars
+            } else if (body.name.toLowerCase() === 'venus') {
+                body.distance = 108200000;  // Correct distance for Venus
+            }
+        });
+
+        return bodies.bodies;
     } else {
-        // Throw an error if the request failed.
         throw new Error('Failed to retrieve bodies');
     }
 }
