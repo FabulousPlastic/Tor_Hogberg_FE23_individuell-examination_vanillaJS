@@ -40,7 +40,7 @@ export async function fetchBodies(apiKey) {
                 body.distance = 108200000;  // Correct distance for Venus
             }
         });
-
+        console.log (bodies); // Log the data for debugging purposes.
         return bodies.bodies;
     } else {
         throw new Error('Failed to retrieve bodies');

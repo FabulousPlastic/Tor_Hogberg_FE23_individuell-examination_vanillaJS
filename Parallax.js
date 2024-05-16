@@ -19,8 +19,8 @@ export function scrollToPlanet(index, targetDistance) {
     const distanceToScroll = endLeft - startLeft;
 
     // Assuming you want to enforce a minimum scroll time (maximum speed)
-    const minDuration = 1000; // Minimum duration in milliseconds
-    const maxSpeed = 3.0; // Maximum pixels per millisecond
+    const minDuration = 1500; // Minimum duration in milliseconds
+    const maxSpeed = 10.0; // Maximum pixels per millisecond
     const requiredDuration = Math.abs(distanceToScroll) / maxSpeed;
     const finalDuration = Math.max(requiredDuration, minDuration); // Use the greater of requiredDuration and minDuration
 
