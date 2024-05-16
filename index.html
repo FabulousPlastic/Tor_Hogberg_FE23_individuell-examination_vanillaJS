@@ -4,41 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Spacecraft Window</title>
+    <title>Upptäck vårt solsystem!</title>
 </head>
 <body>
     <div class="space-window">
-        <!-- <div class="frame outer-frame"> -->
-            <!-- <div class="frame inner-frame"> -->
-                <!-- <div class="frame content-frame"> -->
-                    <!-- <div class="content">  -->
-                        <div class="window-frame">  
-                            <div id="space-view">
-                                <div class="parallax-layer" style="--depth: 0.2;"></div> <!-- Farthest layer, slowest -->
-                                <div class="parallax-layer" style="--depth: 0.5;"></div> <!-- Middle layer -->
-                                <div class="parallax-layer" style="--depth: 1;"></div>   <!-- Nearest layer, fastest -->
-                                <!-- Himlakroppar genereras här-->
-                            </div> 
-                        </div>
-                        <div id="info-square"></div>
-                        <div id="search-container">
-                            <button id="prev"></button>
-                            <input type="text" id="planet-search" placeholder="Enter target planet...">
-                            <button id="search-button">Go</button>
-                            <button id="next"></button> 
-                        </div>
-                        <div id="distance-to-sun">Avstånd från solen: 0 km</div>
-                        <div id="search-error" style="color: red; display: none;">It's too dangerous to go there! <br> (or at least I don't know where that is)</div>
-                        <div class="window-glass"></div>
-                        <div class="spacecraft-interior"></div>
-                        <div class="bolt one"></div>
-                        <div class="bolt two"></div>
-                        <div class="bolt three"></div>
-                        <div class="bolt four"></div>
-                    
-                    <!-- </div>
+        <div id="distance-to-sun">Avstånd från solen: 0 km</div>
+        <div class="window-frame">  
+            <div id="space-view">
+                <div class="parallax-layer" style="--depth: 0.2;"></div> <!-- Farthest layer, slowest -->
+                <div class="parallax-layer" style="--depth: 0.5;"></div> <!-- Middle layer -->
+                <div class="parallax-layer" style="--depth: 1;"></div>   <!-- Nearest layer, fastest -->
+                <!-- Himlakroppar genereras här-->
+            </div> 
+        </div>               
+        <div class="spacecraft-interior">
+            <div id="search-container">
+                <button id="prev"></button>
+                <input type="text" id="planet-search" placeholder="Enter target planet...">
+                <button id="search-button">Go</button>
+                <button id="next"></button> 
             </div>
-        </div> -->
+            <div id="info-square"></div>
+        </div>
+        <div id="search-error" style="color: red; display: none;">It's too dangerous to go there! <br> (or at least I don't know where that is)</div>
     </div>
 </body>
     <script type="module" src="main.js"></script>

@@ -6,15 +6,22 @@ export function updateNavigationButtons(bodies, currentIndex) {
     prevBtn.textContent = prevCelestial.name;
     nextBtn.textContent = nextCelestial.name;
 
+    // Reset disabled states if any
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
+
+    // Adjust button text and disable it if at the bounds
     if (currentIndex === 0) {
-        prevBtn.style.display = 'none'; // Hide previous button at first index
+        prevBtn.textContent = 'Disabled';
+        prevBtn.disabled = true; // Disables the button functionally
     } else {
-        prevBtn.style.display = 'block'; // Show previous button otherwise
+        prevBtn.textContent = prevCelestial.name;
     }
 
     if (currentIndex === bodies.length - 1) {
-        nextBtn.style.display = 'none'; // Hide next button at last index
+        nextBtn.textContent = 'Disabled';
+        nextBtn.disabled = true; // Disables the button functionally
     } else {
-        nextBtn.style.display = 'block'; // Show next button otherwise
+        nextBtn.textContent = nextCelestial.name;
     }
 }
