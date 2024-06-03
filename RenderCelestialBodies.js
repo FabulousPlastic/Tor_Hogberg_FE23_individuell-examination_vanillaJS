@@ -13,14 +13,14 @@
 export function createCelestialBody(body, index) {
     const spaceView = document.getElementById('space-view');
     const viewportWidth = window.innerWidth;
-
+    console.log(viewportWidth);
     // Calculate the base distance from the Sun, converting the distance from km to a more manageable pixel value
-    const distanceScale = viewportWidth * viewportWidth / 10000000000;
-    const baseDistance = (body.distance) * distanceScale; // Scale the astronomical distance
+    const distanceScale = 20000000;
+    const baseDistance = (body.distance) / distanceScale * viewportWidth; // Scale the astronomical distance
 
     // Define a scaling factor for adjusting the size of the celestial body visually
-    const sizeScale = viewportWidth * viewportWidth / 400000;
-    const size = Math.sqrt(body.circumference) * sizeScale; // Scale the size
+    const sizeScale =  1000;
+    const size = Math.sqrt(body.circumference) / sizeScale * viewportWidth; // Scale the size
 
     // Create a new div element to visually represent the celestial body
     const planetDiv = document.createElement('div');
