@@ -1,23 +1,24 @@
 import { getApiKey, fetchBodies } from './API.js';
 import { createCelestialBody } from './RenderCelestialBodies.js';
 import { updateParallax, scrollToPlanet } from './ScrollAnimations.js';
-import { updateCelestialInfo } from './CelestialInfo.js';  // Ensuring this is imported correctly as a separate module
+import { updateCelestialInfo } from './CelestialInfo.js';
 import { performSearch } from './Search.js';
 import { updateNavigationButtons } from './NavButtons.js';
 
 let bodies = [];
-let currentIndex = 0;
+let currentIndex = 3;
 let planetPositions = [];
 let isResizing = false;
+
 async function main() {
     try {
         const apiKey = await getApiKey();
         bodies = await fetchBodies(apiKey);
         initializeCelestialBodies();
-        updateCelestialInfo(bodies, currentIndex);  // Call updateCelestialInfo after bodies are fetched
+        updateCelestialInfo(bodies, currentIndex);
         updateNavigationButtons(bodies, currentIndex);
-
-        setupPlanetPositions();  // This needs to be called after planets are created and rendered.
+        setupPlanetPositions();
+        scrollToTargetPlanet(currentIndex);
 
         document.getElementById('space-view').addEventListener('scroll', handleScroll);
         document.getElementById('search-button').addEventListener('click', () => performSearch(bodies));
@@ -43,7 +44,6 @@ async function main() {
         window.addEventListener('resize', () => {
             debounce(handleResize, 1000)();
         });
-        
 
     } catch (error) {
         console.error('Error:', error);
@@ -55,9 +55,8 @@ function initializeCelestialBodies() {
         return;
     }
     const spaceView = document.getElementById('space-view');
-    spaceView.innerHTML = ''; // Clear existing celestial bodies and parallax layers
+    spaceView.innerHTML = '';
 
-    // Add parallax layers back
     spaceView.innerHTML += `
         <div class="parallax-layer" style="--depth: 0.2;"></div>
         <div class="parallax-layer" style="--depth: 0.5;"></div>
@@ -65,7 +64,7 @@ function initializeCelestialBodies() {
     `;
 
     bodies.forEach((body, index) => createCelestialBody(body, index));
-    setupPlanetPositions();  // Update planet positions after re-rendering
+    setupPlanetPositions();
 }
 
 function setupPlanetPositions() {
@@ -86,10 +85,10 @@ function handleScroll() {
 
     if (currentIndex !== closestPlanet.index) {
         currentIndex = closestPlanet.index;
-        updateCelestialInfo(bodies, currentIndex);  // Update info panel as user scrolls to different planets
+        updateCelestialInfo(bodies, currentIndex);
         updateNavigationButtons(bodies, currentIndex);
     }
-    updateParallax();  // Ensure parallax effect is updated on scroll
+    updateParallax();
 }
 
 function findClosestPlanet(centerOfViewport) {
@@ -100,11 +99,9 @@ function findClosestPlanet(centerOfViewport) {
 
 function scrollToTargetPlanet(index) {
     const targetDistance = bodies[index].distance;
-    scrollToPlanet(index, targetDistance);  // This call should now handle both scrolling and distance display.
+    scrollToPlanet(index, targetDistance);
 }
 
-
-// Debounce function
 function debounce(func, delay) {
     let debounceTimer;
     return function() {
@@ -119,19 +116,15 @@ function handleResize() {
     if (!isResizing) {
         isResizing = true;
     }
-    // Get the current planet's position
     const keepCurrentIndex = currentIndex;
 
     initializeCelestialBodies();
 
     const currentPlanetCentreAfterResize = planetPositions[keepCurrentIndex].centerPosition;
-
     const spaceView = document.getElementById('space-view');
     const viewportWidth = window.innerWidth;
 
     spaceView.scrollLeft = currentPlanetCentreAfterResize - (viewportWidth / 2);
-    
-    // Ensure the current planet is scrolled into view
     scrollToTargetPlanet(currentIndex);
     isResizing = false;
 };
