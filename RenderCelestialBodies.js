@@ -1,24 +1,25 @@
-function calculateSizeScale() {
-    const baseSize = 1200; // Base size for scaling
-    const spaceViewWidth = document.getElementById('space-view').clientWidth;
-    return spaceViewWidth / baseSize;
-}
+// function calculateSizeScale() {
+//     const baseSize = 1200; // Base size for scaling
+//     const spaceViewWidth = document.getElementById('space-view').clientWidth;
+//     return spaceViewWidth / baseSize;
+// }
 
-function calculateDistanceScale() {
-    const baseDistance = 100000000; // Base distance for scaling
-    const spaceViewWidth = document.getElementById('space-view').clientWidth;
-    return spaceViewWidth / baseDistance;
-}
+// function calculateDistanceScale() {
+//     const baseDistance = 100000000; // Base distance for scaling
+//     const spaceViewWidth = document.getElementById('space-view').clientWidth;
+//     return spaceViewWidth / baseDistance;
+// }
 
 export function createCelestialBody(body, index) {
     const spaceView = document.getElementById('space-view');
+    const viewportWidth = window.innerWidth;
 
     // Calculate the base distance from the Sun, converting the distance from km to a more manageable pixel value
-    const distanceScale = calculateDistanceScale();
+    const distanceScale = viewportWidth * viewportWidth / 10000000000;
     const baseDistance = (body.distance) * distanceScale; // Scale the astronomical distance
 
     // Define a scaling factor for adjusting the size of the celestial body visually
-    const sizeScale = calculateSizeScale();
+    const sizeScale = viewportWidth * viewportWidth / 400000;
     const size = Math.sqrt(body.circumference) * sizeScale; // Scale the size
 
     // Create a new div element to visually represent the celestial body

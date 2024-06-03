@@ -51,9 +51,6 @@ async function main() {
 }
 
 function initializeCelestialBodies() {
-    if (isResizing) {
-        return;
-    }
     const spaceView = document.getElementById('space-view');
     spaceView.innerHTML = '';
 
@@ -76,9 +73,6 @@ function setupPlanetPositions() {
 }
 
 function handleScroll() {
-    if (isResizing) {
-        return;
-    }
     const spaceView = document.getElementById('space-view');
     const centerOfViewport = spaceView.scrollLeft + spaceView.clientWidth / 2;
     const closestPlanet = findClosestPlanet(centerOfViewport);
