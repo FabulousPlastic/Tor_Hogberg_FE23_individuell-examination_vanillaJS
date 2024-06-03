@@ -8,7 +8,7 @@ import { updateNavigationButtons } from './NavButtons.js';
 let bodies = [];
 let currentIndex = 0;
 let planetPositions = [];
-
+let isResizing = false;
 async function main() {
     try {
         const apiKey = await getApiKey();
@@ -41,25 +41,9 @@ async function main() {
         });
 
         window.addEventListener('resize', () => {
-            // Get the current planet's position
-            const currentPlanetDiv = document.getElementById(`body-${currentIndex}`);
-            const currentPlanetCenter = currentPlanetDiv.offsetLeft + currentPlanetDiv.offsetWidth / 2;
-        
-            // Recreate celestial bodies
-            initializeCelestialBodies();
-        
-            // Calculate the new center position for the current planet
-            const newCurrentPlanetDiv = document.getElementById(`body-${currentIndex}`);
-            const newCurrentPlanetCenter = newCurrentPlanetDiv.offsetLeft + newCurrentPlanetDiv.offsetWidth / 2;
-        
-            // Adjust the scroll position to center the current planet
-            const spaceView = document.getElementById('space-view');
-            const newScrollPosition = newCurrentPlanetCenter - (spaceView.clientWidth / 2);
-            spaceView.scrollLeft = newScrollPosition;
-        
-            // Ensure the current planet is scrolled into view
-            scrollToTargetPlanet(currentIndex);
+            debounce(handleResize, 1000)();
         });
+        
 
     } catch (error) {
         console.error('Error:', error);
@@ -67,6 +51,9 @@ async function main() {
 }
 
 function initializeCelestialBodies() {
+    if (isResizing) {
+        return;
+    }
     const spaceView = document.getElementById('space-view');
     spaceView.innerHTML = ''; // Clear existing celestial bodies and parallax layers
 
@@ -90,6 +77,9 @@ function setupPlanetPositions() {
 }
 
 function handleScroll() {
+    if (isResizing) {
+        return;
+    }
     const spaceView = document.getElementById('space-view');
     const centerOfViewport = spaceView.scrollLeft + spaceView.clientWidth / 2;
     const closestPlanet = findClosestPlanet(centerOfViewport);
@@ -113,4 +103,36 @@ function scrollToTargetPlanet(index) {
     scrollToPlanet(index, targetDistance);  // This call should now handle both scrolling and distance display.
 }
 
+
+// Debounce function
+function debounce(func, delay) {
+    let debounceTimer;
+    return function() {
+        const args = arguments;
+        const context = this;
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(context, args), delay);
+    }
+}
+
+function handleResize() {
+    if (!isResizing) {
+        isResizing = true;
+    }
+    // Get the current planet's position
+    const keepCurrentIndex = currentIndex;
+
+    initializeCelestialBodies();
+
+    const currentPlanetCentreAfterResize = planetPositions[keepCurrentIndex].centerPosition;
+
+    const spaceView = document.getElementById('space-view');
+    const viewportWidth = window.innerWidth;
+
+    spaceView.scrollLeft = currentPlanetCentreAfterResize - (viewportWidth / 2);
+    
+    // Ensure the current planet is scrolled into view
+    scrollToTargetPlanet(currentIndex);
+    isResizing = false;
+};
 main();
