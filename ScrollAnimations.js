@@ -21,8 +21,8 @@ export function scrollToPlanet(index, targetDistance) {
     const distanceToScroll = endLeft - startLeft;
 
     // Settings for animation speed
-    const minDuration = 3000; // Minimum duration in milliseconds
-    const maxSpeed = 1.0; // Maximum pixels scrolled per millisecond
+    const minDuration = 5000; // Minimum duration in milliseconds
+    const maxSpeed = 5.0; // Maximum pixels scrolled per millisecond
     
     const requiredDuration = Math.abs(distanceToScroll) / maxSpeed;
     const finalDuration = Math.max(requiredDuration, minDuration); 

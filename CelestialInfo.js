@@ -11,7 +11,7 @@ export function updateCelestialInfo(bodies, currentIndex) {
     document.querySelector('.more-info').addEventListener('click', () => displayModal(body));
 }
 
-// Displays a modal with daditional information about the celestial body.
+// Displays a modal with additional information about the celestial body.
 function displayModal(body) {
     const modal = document.createElement('div');
     modal.id = 'celestial-modal';
@@ -20,10 +20,7 @@ function displayModal(body) {
     modal.innerHTML = `
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2>${body.name}</h2>
-            <p>Latinskt namn: ${body.latinName}</p>
-            <p>Typ av himlakropp: ${body.type}</p>
-            <p>Det tar ${body.name} ${body.rotation} dagar att rotera ett varv runt sin egen axel.</p>
+            <h2>${body.name} (latinskt namn: ${body.latinName})</h2>
             <p>${body.desc}</p>
         </div>
     `;
