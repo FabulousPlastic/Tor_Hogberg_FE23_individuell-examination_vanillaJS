@@ -26,4 +26,5 @@ export function performSearch(bodies) {
         searchError.style.display = 'block'; // Show error message
     }
     searchInput.value = '';
+
 }

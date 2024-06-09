@@ -2,11 +2,11 @@ import { getApiKey, fetchBodies } from './API.js';
 import { createCelestialBody } from './RenderCelestialBodies.js';
 import { updateParallax, scrollToPlanet } from './ScrollAnimations.js';
 import { updateCelestialInfo } from './CelestialInfo.js';
-import { performSearch } from './Search.js';
+import { performSearch,} from './Search.js';
 import { updateNavigationButtons } from './NavButtons.js';
 
 let bodies = [];
-let currentIndex = 3;
+let currentIndex = 1; //Starting at Earth
 let planetPositions = [];
 let isResizing = false;
 
@@ -14,10 +14,11 @@ async function main() {
     try {
         const apiKey = await getApiKey();
         bodies = await fetchBodies(apiKey);
-        initializeCelestialBodies();
+        // initializeCelestialBodies();
+        createCelestialBody(bodies);
+        setupPlanetPositions();
         updateCelestialInfo(bodies, currentIndex);
         updateNavigationButtons(bodies, currentIndex);
-        setupPlanetPositions();
         scrollToTargetPlanet(currentIndex);
 
         document.getElementById('space-view').addEventListener('scroll', handleScroll);
@@ -40,29 +41,60 @@ async function main() {
             currentIndex = Math.min(bodies.length - 1, currentIndex + 1);
             scrollToTargetPlanet(currentIndex);
         });
+        window.addEventListener('resize', debounce(handleResize, 1000));
+        // window.addEventListener('resize', () => {
+        //     debounce(handleResize, 1000)();
+        // });
+        function handleResize() {
+            if (!isResizing) {
+                isResizing = true;
+            }
+           
+            const keepCurrentIndex = currentIndex;
+            const spaceView = document.getElementById('space-view');
+            spaceView.innerHTML = '';
 
-        window.addEventListener('resize', () => {
-            debounce(handleResize, 1000)();
-        });
+            spaceView.innerHTML += `
+                <div class="parallax-layer" style="--depth: 0.2;"></div>
+                <div class="parallax-layer" style="--depth: 0.5;"></div>
+                <div class="parallax-layer" style="--depth: 1;"></div>
+            `;
+
+            createCelestialBody(bodies);
+            setupPlanetPositions();
+            updateCelestialInfo(bodies, keepCurrentIndex);
+            updateNavigationButtons(bodies, keepCurrentIndex);
+            scrollToTargetPlanet(keepCurrentIndex);
+            // initializeCelestialBodies();
+            // setupPlanetPositions();
+            // console.log(keepCurrentIndex);
+            // console.log(currentIndex);
+            // const currentPlanetCentreAfterResize = planetPositions[keepCurrentIndex].centerPosition;
+            // const spaceView = document.getElementById('space-view');
+            // const viewportWidth = window.innerWidth;
+        
+            // spaceView.scrollLeft = currentPlanetCentreAfterResize - (viewportWidth / 2);
+            // scrollToTargetPlanet(currentIndex);
+            isResizing = false;
+        };
 
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-function initializeCelestialBodies() {
-    const spaceView = document.getElementById('space-view');
-    spaceView.innerHTML = '';
+// function initializeCelestialBodies() {
+//     const spaceView = document.getElementById('space-view');
+//     spaceView.innerHTML = '';
 
-    spaceView.innerHTML += `
-        <div class="parallax-layer" style="--depth: 0.2;"></div>
-        <div class="parallax-layer" style="--depth: 0.5;"></div>
-        <div class="parallax-layer" style="--depth: 1;"></div>
-    `;
+//     spaceView.innerHTML += `
+//         <div class="parallax-layer" style="--depth: 0.2;"></div>
+//         <div class="parallax-layer" style="--depth: 0.5;"></div>
+//         <div class="parallax-layer" style="--depth: 1;"></div>
+//     `;
 
-    bodies.forEach((body, index) => createCelestialBody(body, index));
-    setupPlanetPositions();
-}
+//     bodies.forEach((body, index) => createCelestialBody(body, index));
+// }
 
 function setupPlanetPositions() {
     planetPositions = bodies.map((body, index) => {
@@ -86,6 +118,10 @@ function handleScroll() {
 }
 
 function findClosestPlanet(centerOfViewport) {
+    if (isResizing) {
+        return
+    }
+    else
     return planetPositions.reduce((closest, planet) => {
         return (Math.abs(planet.centerPosition - centerOfViewport) < Math.abs(closest.centerPosition - centerOfViewport)) ? planet : closest;
     });
@@ -106,20 +142,28 @@ function debounce(func, delay) {
     }
 }
 
-function handleResize() {
-    if (!isResizing) {
-        isResizing = true;
-    }
-    const keepCurrentIndex = currentIndex;
+// function handleResize() {
+//     if (!isResizing) {
+//         isResizing = true;
+//     }
+   
+//     const keepCurrentIndex = currentIndex;
+//     bodies = fetchBodies();
+//     createCelestialBody();
+//     setupPlanetPositions();
+//     updateCelestialInfo(bodies, keepCurrentIndex);
+//     updateNavigationButtons(bodies, keepCurrentIndex);
+//     scrollToTargetPlanet(keepCurrentIndex);
+//     // initializeCelestialBodies();
+//     // setupPlanetPositions();
+//     // console.log(keepCurrentIndex);
+//     // console.log(currentIndex);
+//     // const currentPlanetCentreAfterResize = planetPositions[keepCurrentIndex].centerPosition;
+//     // const spaceView = document.getElementById('space-view');
+//     // const viewportWidth = window.innerWidth;
 
-    initializeCelestialBodies();
-
-    const currentPlanetCentreAfterResize = planetPositions[keepCurrentIndex].centerPosition;
-    const spaceView = document.getElementById('space-view');
-    const viewportWidth = window.innerWidth;
-
-    spaceView.scrollLeft = currentPlanetCentreAfterResize - (viewportWidth / 2);
-    scrollToTargetPlanet(currentIndex);
-    isResizing = false;
-};
+//     // spaceView.scrollLeft = currentPlanetCentreAfterResize - (viewportWidth / 2);
+//     // scrollToTargetPlanet(currentIndex);
+//     isResizing = false;
+// };
 main();
