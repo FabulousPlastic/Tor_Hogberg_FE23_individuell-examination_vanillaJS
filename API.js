@@ -1,4 +1,4 @@
-// Retrieves API key from remote server.
+// Retrieves API key
 export async function getApiKey() {
     const response = await fetch('https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/keys', {
         method: 'POST'

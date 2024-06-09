@@ -1,3 +1,5 @@
+
+// Handles parallax animation
 export function updateParallax() {
     const spaceView = document.getElementById('space-view');
     const scrollLeft = spaceView.scrollLeft;
@@ -8,23 +10,25 @@ export function updateParallax() {
     });
 }
 
-let scrollAnimationFrameId = null;  // This makes it accessible within all functions in this file
+let scrollAnimationFrameId = null; 
+// Handles scroll animations
 export function scrollToPlanet(index, targetDistance) {
+    //Sets start and end positions
     const spaceView = document.getElementById('space-view');
     const planetDiv = document.getElementById(`body-${index}`);
     const endLeft = planetDiv.offsetLeft + planetDiv.offsetWidth / 2 - spaceView.offsetWidth / 2;
     const startLeft = spaceView.scrollLeft;
     const distanceToScroll = endLeft - startLeft;
 
-    // Assuming you want to enforce a minimum scroll time (maximum speed)
+    // Settings for animation speed
     const minDuration = 3000; // Minimum duration in milliseconds
-    const maxSpeed = 1.0; // Maximum pixels per millisecond
+    const maxSpeed = 1.0; // Maximum pixels scrolled per millisecond
+    
     const requiredDuration = Math.abs(distanceToScroll) / maxSpeed;
-    const finalDuration = Math.max(requiredDuration, minDuration); // Use the greater of requiredDuration and minDuration
-
+    const finalDuration = Math.max(requiredDuration, minDuration); 
     let startTime = null;
 
-    // Fetch the current distance from the distance counter
+    // Distance counter
     const distanceCounter = document.getElementById('distance-to-sun');
     let currentDistance = parseInt(distanceCounter.textContent.replace(/[^\d]/g, '')) || 0;
 
@@ -32,27 +36,27 @@ export function scrollToPlanet(index, targetDistance) {
     function easeInOutQuad(t) {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
-
+    //Synchronizes scrolling and distance counter
     function scrollStep(timestamp) {
         if (!startTime) startTime = timestamp;
         const timeElapsed = timestamp - startTime;
-        const progress = timeElapsed / finalDuration; // Use finalDuration here
+        const progress = timeElapsed / finalDuration;
 
         // Apply the easing function to the progress
         const easedProgress = easeInOutQuad(progress);
 
-        spaceView.scrollLeft = startLeft + distanceToScroll * easedProgress; // Calculate current position based on eased progress
+        spaceView.scrollLeft = startLeft + distanceToScroll * easedProgress;
 
         // Simultaneously update the distance counter
         const intermediateDistance = currentDistance + (targetDistance - currentDistance) * easedProgress;
         distanceCounter.textContent = `Avstånd från solen: ${Math.round(intermediateDistance).toLocaleString()} km`;
 
-        if (timeElapsed < finalDuration) { // Use finalDuration here
-            scrollAnimationFrameId = requestAnimationFrame(scrollStep); // Continue moving
+        if (timeElapsed < finalDuration) { 
+            scrollAnimationFrameId = requestAnimationFrame(scrollStep);
         } else {
             if (scrollAnimationFrameId) {
-                cancelAnimationFrame(scrollAnimationFrameId); // Ensure only scroll-related animations are cancelled
-                scrollAnimationFrameId = null; // Clear the animation frame ID when done
+                cancelAnimationFrame(scrollAnimationFrameId);
+                scrollAnimationFrameId = null;
             }
             // Once scrolling is complete, ensure the distance counter shows the final exact distance
             distanceCounter.textContent = `Avstånd från solen: ${Math.round(targetDistance).toLocaleString()} km`;

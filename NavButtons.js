@@ -12,15 +12,15 @@ export function updateNavigationButtons(bodies, currentIndex) {
 
     // Adjust button text and disable it if at the bounds
     if (currentIndex === 0) {
-        prevBtn.textContent = 'Disabled';
-        prevBtn.disabled = true; // Disables the button functionally
+        prevBtn.textContent = 'För varmt!';
+        prevBtn.disabled = true; 
     } else {
         prevBtn.textContent = prevCelestial.name;
     }
 
     if (currentIndex === bodies.length - 1) {
-        nextBtn.textContent = 'Disabled';
-        nextBtn.disabled = true; // Disables the button functionally
+        nextBtn.textContent = 'För långt bort!';
+        nextBtn.disabled = true; 
     } else {
         nextBtn.textContent = nextCelestial.name;
     }

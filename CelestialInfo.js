@@ -11,7 +11,7 @@ export function updateCelestialInfo(bodies, currentIndex) {
     document.querySelector('.more-info').addEventListener('click', () => displayModal(body));
 }
 
-// Displays a modal with detailed information about the celestial body.
+// Displays a modal with daditional information about the celestial body.
 function displayModal(body) {
     const modal = document.createElement('div');
     modal.id = 'celestial-modal';

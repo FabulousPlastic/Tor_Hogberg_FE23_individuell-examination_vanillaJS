@@ -4,12 +4,12 @@ export function performSearch(bodies) {
     searchInput.setAttribute('autocomplete', 'off');
     const searchText = searchInput.value.toLowerCase();
     
-    // Check for "home" or "hem" easter egg
+    // Extra search processing for 'home' and 'hem'
     if (searchText === 'home' || searchText === 'hem') {
         searchError.style.display = 'none'; // Hide error message
         document.dispatchEvent(new CustomEvent('searchSuccess', { detail: 3 })); // Directly use index 3 for Earth
         searchInput.value = '';
-        return; // Exit the function early
+        return;
     }
 
     // Regular search processing
@@ -20,10 +20,10 @@ export function performSearch(bodies) {
 
     if (matchingIndices.length === 1) {
         const currentIndex = matchingIndices[0];
-        searchError.style.display = 'none'; // Hide error message
+        searchError.style.display = 'none';
         document.dispatchEvent(new CustomEvent('searchSuccess', { detail: currentIndex }));
     } else {
-        searchError.style.display = 'block'; // Show error message
+        searchError.style.display = 'block';
     }
     searchInput.value = '';
 
