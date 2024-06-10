@@ -4,8 +4,8 @@ export function updateCelestialInfo(bodies, currentIndex) {
     const infoDiv = document.getElementById('info-square');
 
     infoDiv.innerHTML = `
-    <h2>${body.name}</h2>
-    <p>För mer fakta: <span class="more-info">Klicka här!</span></p>
+    <h2>Vi är vid ${body.name} </h2>
+    <button class="more-info">För mer fakta: Klicka här!</button>
     `;
 
     document.querySelector('.more-info').addEventListener('click', () => displayModal(body));
@@ -18,10 +18,10 @@ function displayModal(body) {
     modal.className = 'modal';
 
     modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
+        <div class="modal-content">            
             <h2>${body.name} (latinskt namn: ${body.latinName})</h2>
             <p>${body.desc}</p>
+            <button class="close-button">Stäng</button>
         </div>
     `;
 
@@ -30,22 +30,21 @@ function displayModal(body) {
     const closeButton = modal.querySelector('.close-button');
     closeButton.onclick = closeModal;
 
-    modal.onclick = (event) => {
-        if (event.target === modal) {
-            closeModal();
-        }
-    };
-
     function closeModal() {
         modal.style.display = 'none';
         modal.remove();
-        modal.onclick = null;
+        // modal.onclick = null;
         closeButton.onclick = null;
+        window.removeEventListener('click', outsideClickListener);
     }
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+    function outsideClickListener(event) {
+        if (!modal.contains(event.target)) {
             closeModal();
         }
-    });
+    }
+    //Listener with timeout to prevent closeModal triggering before modal is created
+    setTimeout(() => {
+        window.addEventListener('click', outsideClickListener);
+    }, 100);
 }

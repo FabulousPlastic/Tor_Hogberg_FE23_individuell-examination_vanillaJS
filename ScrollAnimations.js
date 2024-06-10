@@ -21,8 +21,8 @@ export function scrollToPlanet(index, targetDistance) {
     const distanceToScroll = endLeft - startLeft;
 
     // Settings for animation speed
-    const minDuration = 5000; // Minimum duration in milliseconds
-    const maxSpeed = 5.0; // Maximum pixels scrolled per millisecond
+    const minDuration = 2500; // Minimum duration in milliseconds
+    const maxSpeed = 0.8; // Maximum pixels scrolled per millisecond
     
     const requiredDuration = Math.abs(distanceToScroll) / maxSpeed;
     const finalDuration = Math.max(requiredDuration, minDuration); 
@@ -36,6 +36,8 @@ export function scrollToPlanet(index, targetDistance) {
     function easeInOutQuad(t) {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
+
+
     //Synchronizes scrolling and distance counter
     function scrollStep(timestamp) {
         if (!startTime) startTime = timestamp;

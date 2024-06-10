@@ -24,6 +24,9 @@ export function performSearch(bodies) {
         document.dispatchEvent(new CustomEvent('searchSuccess', { detail: currentIndex }));
     } else {
         searchError.style.display = 'block';
+        setTimeout(() => {
+            searchError.style.display = 'none';
+        }, 3000);
     }
     searchInput.value = '';
 
