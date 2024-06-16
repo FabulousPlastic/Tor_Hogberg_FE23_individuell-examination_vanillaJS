@@ -3,8 +3,6 @@ export function updateNavigationButtons(bodies, currentIndex) {
     const nextBtn = document.getElementById('next');
     const prevCelestial = bodies[(currentIndex - 1 + bodies.length) % bodies.length];
     const nextCelestial = bodies[(currentIndex + 1) % bodies.length];
-    prevBtn.textContent = prevCelestial.name;
-    nextBtn.textContent = nextCelestial.name;
 
     // Reset disabled states if any
     prevBtn.disabled = false;
@@ -12,16 +10,43 @@ export function updateNavigationButtons(bodies, currentIndex) {
 
     // Adjust button text and disable it if at the bounds
     if (currentIndex === 0) {
-        prevBtn.textContent = 'För varmt!';
+        prevBtn.innerHTML = `
+        <button class="pushable" id="prev">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front">
+            För varmt!
+            </span>
+        </button>`;
         prevBtn.disabled = true; 
     } else {
-        prevBtn.textContent = prevCelestial.name;
+        prevBtn.innerHTML = `
+        <button class="pushable" id="prev">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front">
+            ${prevCelestial.name}
+            </span>
+        </button>`;
     }
 
     if (currentIndex === bodies.length - 1) {
-        nextBtn.textContent = 'För långt bort!';
+        nextBtn.innerHTML = `
+        <button class="pushable" id="next">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front">
+            För långt bort!
+            </span>
+        </button>`;
         nextBtn.disabled = true; 
     } else {
-        nextBtn.textContent = nextCelestial.name;
+        nextBtn.innerHTML = `<button class="pushable" id="next">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">
+        ${nextCelestial.name}
+        </span>
+        </button>`;
     }
 }

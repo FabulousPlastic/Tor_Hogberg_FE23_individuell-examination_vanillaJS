@@ -4,8 +4,9 @@ export function updateCelestialInfo(bodies, currentIndex) {
     const infoDiv = document.getElementById('info-square');
 
     infoDiv.innerHTML = `
-    <h2>Vi är vid ${body.name} </h2>
-    <button class="more-info">För mer fakta: Klicka här!</button>
+    <h3>Närmaste himlakropp är:</h3>
+    <h2> ${body.name} </h2>
+    <button class="more-info">För mer fakta klicka här!</button>
     `;
 
     document.querySelector('.more-info').addEventListener('click', () => displayModal(body));
