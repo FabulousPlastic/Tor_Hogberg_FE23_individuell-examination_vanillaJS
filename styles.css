@@ -127,7 +127,8 @@ body, html {
 }
 
 
-#search-error {
+
+#search-error, .modal {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -135,17 +136,48 @@ body, html {
     width: 40%;
     margin: 2%;
     padding: 10%;
-    border-radius: 8px;
+    border-radius: 5px; /* Slightly rounded corners */
     border-style: dashed;
-    border-color: #c61360;
-    background-color: rgba(0, 0, 0, 0.9); 
-    color: #c61360;
+    border-color: #ffffff; /* White border */
+    background-color: #000000; /* Black background */
+    color: #00ff00; /* Retro green color */
     text-align: center;
     font-size: clamp(1.75rem, 4vw, 3rem);
-    display: none;
     z-index: 5;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Green glowing shadow */
 }
 
+#search-error::before, .modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px; /* Match parent border-radius */
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5); /* Green glowing inner shadow */
+    pointer-events: none;
+}
+
+#search-error::after, .modal::after {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 80%;
+    background: rgba(0, 255, 0, 0.1); /* Slight green tint */
+    border-radius: 5px; /* Match parent border-radius */
+    pointer-events: none;
+}
+
+#search-error{
+    display: none;
+}
+
+.modal :nth-child(3) {
+    font-size: var(--small);
+}
 
 
 #distance-to-sun {
@@ -153,38 +185,41 @@ body, html {
     top: 0%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgb(248, 189, 198);
+    color: #00ff00; /* Retro green color */
     padding: 1.5vh 2.5vw;
-    border-radius: 1vw;
-    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-    border: 2px solid #c61360;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    border-radius: 5px; /* Slightly rounded corners */
+    background: #000000; /* Black background */
+    border: 3px solid #ffffff; /* White border */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
     text-align: center;
     font-size: var(--medium);
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 
+    0 0 30px #e8dede, 0 0 40px #e8dede, 0 0 50px #e8dede, 
+    0 0 60px #e8dede, 0 0 70px #e8dede; /* Glowing effect */
     z-index: 5;
 }
 
 #distance-to-sun::before {
     content: '';
     position: absolute;
-    top: 0;
+    /* top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    border-radius: 10px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+    bottom: 0; */
+    border-radius: 5px; /* Match parent border-radius */
+    box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5); /* Green glowing inner shadow */
     pointer-events: none;
 }
 
 #distance-to-sun::after {
     content: '';
     position: absolute;
-    top: 5%;
+    /* top: 5%;
     left: 5%;
     right: 5%;
-    bottom: 80%;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
+    bottom: 80%; */
+    background: rgba(0, 255, 0, 0.1); /* Slight green tint */
+    border-radius: 5px; /* Match parent border-radius */
     pointer-events: none;
 }
 
@@ -246,16 +281,17 @@ body, html {
 }
 
 #search-input-field {
-padding: 2%;
-margin: 2vw;
-border: 0.1vw solid #c61360;
-background: linear-gradient(145deg, #3a3a3a, #1e1e1e);
-color: #c61360;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-transition: background 0.3s, transform 0.1s, box-shadow 0.1s;
-background-color: #2a2a2a;
+    padding: 2%;
+    margin: 2vw;
+    border: 0.1vw solid #ffffff; /* White border */
+    background: linear-gradient(145deg, #1e1e1e, #000000); /* Darker gradient for retro look */
+    color: #00ff00; /* Retro green color */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Green glowing shadow */
+    transition: background 0.3s, transform 0.1s, box-shadow 0.1s;
+    background-color: #000000; /* Black background */
+    border-radius: 5px; /* Slightly rounded corners */
 }
-
+/* 
 .modal {
 position: fixed;
 left: 50%;
@@ -269,7 +305,7 @@ border-radius: 2vw;
 border-style: dashed;
 border-color: #c61360;
 width: 61.8%;
-}
+} */
 
 .close-button {
 float: right;
