@@ -22,7 +22,7 @@ async function main() {
         //Event listeners
         document.getElementById('space-view').addEventListener('scroll', handleScroll);
         document.getElementById('search-button').addEventListener('click', () => performSearch(bodies));
-        document.getElementById('planet-search').addEventListener('keypress', (event) => {
+        document.getElementById('search-input-field').addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 performSearch(bodies);
                 event.preventDefault();

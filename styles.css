@@ -17,33 +17,22 @@ footer, header, hgroup, main, menu, nav, section {
 }
 
 :root {
-    /* Base font size for rem calculations, e.g., 16px */
+    /* Base font size & responsive font size variables */
     font-size: 16px;
+    --small: clamp(0.5rem, 1vw, 1.5rem);
+    --medium: clamp(1rem, 3vw, 3rem);
+    --large: clamp(1.5rem, 4vw, 4.5rem);
+    --xlarge: clamp(2rem, 5vw, 6rem);
 }
 
 /* Responsive typography using clamp */
-h1 {
-    font-size: clamp(2rem, 4vw + 1rem, 4rem);
-}
-
-h2 {
-    font-size: clamp(1.75rem, 3.5vw + 0.75rem, 3rem);
-}
-
-h3 {
-    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
-}
-
-p {
-    font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
-}
 
 .button {
-    font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+    font-size: var(--medium)
 }
 
 input[type="text"], textarea {
-    font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+    font-size: var(--small);
 }
 
 body, input, button, select, textarea {
@@ -126,6 +115,7 @@ body, html {
 
 #search-container {
     position: relative;
+    top: 5%;
     width: 80%;
     display: flex;
     flex-direction: row;
@@ -136,13 +126,6 @@ body, html {
     margin-top: auto;
 }
 
-#planet-search {
-    padding: 10px;
-    margin: 5px;
-    border-radius: 4px;
-    border: 2px solid #ddd;
-    background-color: #f8f8f8;
-}
 
 #search-error {
     position: absolute;
@@ -157,8 +140,8 @@ body, html {
     border-color: #c61360;
     background-color: rgba(0, 0, 0, 0.9); 
     color: #c61360;
-    font-size: 24px;
     text-align: center;
+    font-size: clamp(1.75rem, 4vw, 3rem);
     display: none;
     z-index: 5;
 }
@@ -167,18 +150,17 @@ body, html {
 
 #distance-to-sun {
     position: absolute;
+    top: 0%;
     left: 50%;
-    transform: translateX(-50%);
-    top: 6%;
+    transform: translate(-50%, -50%);
     color: rgb(248, 189, 198);
-    font-family: 'VT323', monospace;
-    font-size: 1.5em;
-    padding: 15px 25px;
-    border-radius: 10px;
+    padding: 1.5vh 2.5vw;
+    border-radius: 1vw;
     background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
     border: 2px solid #c61360;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
     text-align: center;
+    font-size: var(--medium);
     z-index: 5;
 }
 
@@ -263,7 +245,7 @@ body, html {
     box-shadow: 0 0 30px #ffff00;
 }
 
-#planet-search {
+#search-input-field {
 padding: 2%;
 margin: 2vw;
 border: 0.1vw solid #c61360;
@@ -302,6 +284,7 @@ cursor: pointer;
 /*Buttons*/
 /*Universal 3d button style */
 .pushable {
+    font-size: clamp(1rem, 2.5vw, 5rem);
     position: relative;
     background: transparent;
     border: none;
@@ -332,7 +315,6 @@ cursor: pointer;
     position: relative;
     padding: 12px 42px;
     border-radius: 12px;
-    font-size: 1.25rem;
     color: white;
     background: hsl(345deg 100% 47%);
     transform: translateY(-4px);

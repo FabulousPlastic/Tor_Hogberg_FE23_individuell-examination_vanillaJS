@@ -13,6 +13,9 @@ export function updateParallax() {
 let scrollAnimationFrameId = null; 
 // Handles scroll animations
 export function scrollToPlanet(index, targetDistance) {
+
+    const searchError = document.getElementById('search-error');
+
     //Sets start and end positions
     const spaceView = document.getElementById('space-view');
     const planetDiv = document.getElementById(`body-${index}`);
@@ -21,8 +24,8 @@ export function scrollToPlanet(index, targetDistance) {
     const distanceToScroll = endLeft - startLeft;
 
     // Settings for animation speed
-    const minDuration = 10000; // Minimum duration in milliseconds
-    const maxSpeed = 5; // Maximum pixels scrolled per millisecond
+    const minDuration = 2500; // Minimum duration in milliseconds
+    const maxSpeed = 10; // Maximum pixels scrolled per millisecond
     
     const requiredDuration = Math.abs(distanceToScroll) / maxSpeed;
     const finalDuration = Math.max(requiredDuration, minDuration); 
@@ -37,13 +40,13 @@ export function scrollToPlanet(index, targetDistance) {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
     // Custom ease-in-out function: accelerates and then decelerates
-    function customEaseInOut(t, accel, decel) {
-        if (t < 0.5) {
-            return Math.pow(t * 2, accel) / 2;
-        } else {
-            return 1 - Math.pow((1 - t) * 2, decel) / 2;
-        }
-    }
+    // function customEaseInOut(t, accel, decel) {
+    //     if (t < 0.5) {
+    //         return Math.pow(t * 2, accel) / 2;
+    //     } else {
+    //         return 1 - Math.pow((1 - t) * 2, decel) / 2;
+    //     }
+    // }
 
     //Synchronizes scrolling and distance counter
     function scrollStep(timestamp) {

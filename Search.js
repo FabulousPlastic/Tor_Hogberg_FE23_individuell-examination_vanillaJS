@@ -1,5 +1,5 @@
 export function performSearch(bodies) {
-    const searchInput = document.getElementById('planet-search');
+    const searchInput = document.getElementById('search-input-field');
     const searchError = document.getElementById('search-error');
     searchInput.setAttribute('autocomplete', 'off');
     const searchText = searchInput.value.toLowerCase();
@@ -23,6 +23,7 @@ export function performSearch(bodies) {
         searchError.style.display = 'none';
         document.dispatchEvent(new CustomEvent('searchSuccess', { detail: currentIndex }));
     } else {
+        searchError.innerHTML = `Det är för farligt att åka till ${searchText}... <br> (eller så hittar jag bara inte dit!)`;
         searchError.style.display = 'block';
         setTimeout(() => {
             searchError.style.display = 'none';

@@ -6,10 +6,10 @@ export function updateCelestialInfo(bodies, currentIndex) {
     infoDiv.innerHTML = `
     <h3>Närmaste himlakropp är:</h3>
     <h2> ${body.name} </h2>
-    <button class="more-info">För mer fakta klicka här!</button>
+    <button id="more-info">För mer fakta klicka här!</button>
     `;
 
-    document.querySelector('.more-info').addEventListener('click', () => displayModal(body));
+    document.getElementById('more-info').addEventListener('click', () => displayModal(body));
 }
 
 // Displays a modal with additional information about the celestial body.
@@ -20,7 +20,8 @@ function displayModal(body) {
 
     modal.innerHTML = `
         <div class="modal-content">            
-            <h2>${body.name} (latinskt namn: ${body.latinName})</h2>
+            <h2>${body.name}</h2>
+            <p>(latinskt namn: ${body.latinName})</p>
             <p>${body.desc}</p>
             <button class="close-button">Stäng</button>
         </div>
@@ -34,7 +35,6 @@ function displayModal(body) {
     function closeModal() {
         modal.style.display = 'none';
         modal.remove();
-        // modal.onclick = null;
         closeButton.onclick = null;
         window.removeEventListener('click', outsideClickListener);
     }
