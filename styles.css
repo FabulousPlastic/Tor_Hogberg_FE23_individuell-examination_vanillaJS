@@ -215,6 +215,13 @@ h2 {
     text-shadow: 0 0 5px rgba(51, 204, 51, 0.7), 0 0 10px rgba(51, 204, 51, 0.6), 0 0 20px rgba(51, 204, 51, 0.5), 
     0 0 30px rgba(232, 222, 222, 0.4), 0 0 40px rgba(232, 222, 222, 0.3), 0 0 50px rgba(232, 222, 222, 0.2), 
     0 0 60px rgba(232, 222, 222, 0.1), 0 0 70px rgba(232, 222, 222, 0.1); /* Glowing effect with opacity */
+    background:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.2) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.2) 50%, transparent 50%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.2) 50%, transparent 50%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 50%, transparent 50%);
+    background-size: 2px 2px, 2px 2px, 2px 2px, 2px 2px;
+    background-color: #000;
 }
 
 #distance-to-sun::before, #info-square::before {
@@ -364,6 +371,8 @@ width: 61.8%;
 #more-info {
     z-index: 4;
     font-size: var(--small);
+    border-style: dashed;
+    font-size: var(--medium);
     text-shadow: 0 0 5px rgba(51, 204, 51, 0.7), 0 0 10px rgba(51, 204, 51, 0.6), 0 0 20px rgba(51, 204, 51, 0.5), 
              0 0 30px rgba(232, 222, 222, 0.4), 0 0 40px rgba(232, 222, 222, 0.3), 0 0 50px rgba(232, 222, 222, 0.2), 
              0 0 60px rgba(232, 222, 222, 0.1), 0 0 70px rgba(232, 222, 222, 0.1); /* Glowing effect with opacity */
