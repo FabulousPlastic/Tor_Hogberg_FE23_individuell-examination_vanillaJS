@@ -6,8 +6,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font: inherit;
-    vertical-align: baseline;
+    /* vertical-align: baseline; */
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -19,24 +18,15 @@ footer, header, hgroup, main, menu, nav, section {
 :root {
     /* Base font size & responsive font size variables */
     font-size: 16px;
-    --small: clamp(0.5rem, 1vw, 1.5rem);
-    --medium: clamp(1rem, 3vw, 3rem);
-    --large: clamp(1.5rem, 4vw, 4.5rem);
-    --xlarge: clamp(2rem, 5vw, 6rem);
+    --small: clamp(1rem, 2vw, 3rem);
+    --medium: clamp(1.5rem, 3vw, 4.5rem);
+    --large: clamp(2.25rem, 4.5vw, 6.75rem);
+    --xlarge: clamp(3.375rem, 6.75vw, 10.125rem);
 }
 
-/* Responsive typography using clamp */
-
-.button {
-    font-size: var(--medium)
-}
-
-input[type="text"], textarea {
-    font-size: var(--small);
-}
 
 body, input, button, select, textarea {
-    font-family: "VT323", "Courier New", monospace;
+    font-family: "VT323", monospace;
     text-transform: uppercase;
 }
 
@@ -49,17 +39,24 @@ body, html {
     z-index: 0;
 }
 
+h2 {
+    font-size: var(--large);
+}
 .window-frame {
     position: absolute;
-    bottom: 20%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    height: 61.8%;
-    border-radius: 60% 60% 60% 60% / 50% 50% 20% 20%;
+    transform: translate(-50%, -50%);
+    width: 90vh;
+    height: 90vh;
+    max-width: 90vw;
+    max-height: 90vw;
+    /* border-radius: 60% 60% 60% 60% / 50% 50% 20% 20%; */
+    border-radius: 50%;
     border: 0.8vw solid #5a5a5a;
     overflow: hidden;
     background-color: black;
+    box-shadow: inset #5d8aa8 0 0 20vw;
 }
 
 .window-frame:before, .window-frame:after {
@@ -70,7 +67,8 @@ body, html {
     width: 80%;
     height: 80%;
     border: 0.5vw solid #555;
-    border-radius: 60% 60% 60% 60% / 50% 50% 20% 20%;
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 45%;
+    /* box-shadow: #5d8aa8 0 0 10vw; */
     z-index: 3;
 }
 
@@ -79,6 +77,7 @@ body, html {
     left: 5%;
     width: 90%;
     height: 90%;
+    /* box-shadow: #5d8aa8 0 0 10vw; */
 }
 
 .spacecraft-interior {
@@ -96,7 +95,7 @@ body, html {
     z-index: 3;
 }
 
-#info-square {
+/* #info-square {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,11 +110,11 @@ body, html {
     z-index: 4;
     padding: 2vw;
     margin: auto;
-}
+} */
 
 #search-container {
     position: relative;
-    top: 5%;
+    top: 10%;
     width: 80%;
     display: flex;
     flex-direction: row;
@@ -123,7 +122,6 @@ body, html {
     justify-content: center;
     gap: 2vw;
     z-index: 4;
-    margin-top: auto;
 }
 
 
@@ -133,7 +131,8 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%;
+    width: 40vw;
+    max-height: 80vh;
     margin: 2%;
     padding: 10%;
     border-radius: 5px; /* Slightly rounded corners */
@@ -142,7 +141,6 @@ body, html {
     background-color: #000000; /* Black background */
     color: #00ff00; /* Retro green color */
     text-align: center;
-    font-size: clamp(1.75rem, 4vw, 3rem);
     z-index: 5;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); /* Green glowing shadow */
 }
@@ -150,10 +148,10 @@ body, html {
 #search-error::before, .modal::before {
     content: '';
     position: absolute;
-    top: 0;
+    /* top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 0; */
     border-radius: 5px; /* Match parent border-radius */
     box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5); /* Green glowing inner shadow */
     pointer-events: none;
@@ -162,10 +160,10 @@ body, html {
 #search-error::after, .modal::after {
     content: '';
     position: absolute;
-    top: 5%;
+    /* top: 5%;
     left: 5%;
     right: 5%;
-    bottom: 80%;
+    bottom: 80%; */
     background: rgba(0, 255, 0, 0.1); /* Slight green tint */
     border-radius: 5px; /* Match parent border-radius */
     pointer-events: none;
@@ -179,39 +177,59 @@ body, html {
     font-size: var(--small);
 }
 
-
 #distance-to-sun {
     position: absolute;
-    top: 0%;
+    top: -5%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 50vw;
+    z-index: 4;
+}
+
+#info-square {
+    position: absolute;
+    top: -5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 61.8vw;
+    height: 12vh;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 3vw;
+    padding: 1.5vh 2.5vw
+}
+
+
+#distance-to-sun, #info-square {
     color: #00ff00; /* Retro green color */
     padding: 1.5vh 2.5vw;
-    border-radius: 5px; /* Slightly rounded corners */
+    border-radius: 50px 50px 5px 5px; 
     background: #000000; /* Black background */
     border: 3px solid #ffffff; /* White border */
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
     text-align: center;
     font-size: var(--medium);
-    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 
-    0 0 30px #e8dede, 0 0 40px #e8dede, 0 0 50px #e8dede, 
-    0 0 60px #e8dede, 0 0 70px #e8dede; /* Glowing effect */
-    z-index: 5;
+    text-shadow: 0 0 5px rgba(51, 204, 51, 0.7), 0 0 10px rgba(51, 204, 51, 0.6), 0 0 20px rgba(51, 204, 51, 0.5), 
+    0 0 30px rgba(232, 222, 222, 0.4), 0 0 40px rgba(232, 222, 222, 0.3), 0 0 50px rgba(232, 222, 222, 0.2), 
+    0 0 60px rgba(232, 222, 222, 0.1), 0 0 70px rgba(232, 222, 222, 0.1); /* Glowing effect with opacity */
 }
 
-#distance-to-sun::before {
+#distance-to-sun::before, #info-square::before {
     content: '';
     position: absolute;
     /* top: 0;
     left: 0;
     right: 0;
     bottom: 0; */
-    border-radius: 5px; /* Match parent border-radius */
+    /* border-radius: 5px;  */
     box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5); /* Green glowing inner shadow */
     pointer-events: none;
 }
 
-#distance-to-sun::after {
+#distance-to-sun::after, #info-square::after {
     content: '';
     position: absolute;
     /* top: 5%;
@@ -219,9 +237,11 @@ body, html {
     right: 5%;
     bottom: 80%; */
     background: rgba(0, 255, 0, 0.1); /* Slight green tint */
-    border-radius: 5px; /* Match parent border-radius */
+    /* border-radius: 5px;  */
     pointer-events: none;
 }
+
+
 
 #space-view {
     position: relative;
@@ -278,6 +298,7 @@ body, html {
 .celestial-body.star {
     background-color: #ffff00;
     box-shadow: 0 0 30px #ffff00;
+    z-index: 2;
 }
 
 #search-input-field {
@@ -290,6 +311,7 @@ body, html {
     transition: background 0.3s, transform 0.1s, box-shadow 0.1s;
     background-color: #000000; /* Black background */
     border-radius: 5px; /* Slightly rounded corners */
+    font-size: var(--medium)
 }
 /* 
 .modal {
@@ -307,27 +329,57 @@ border-color: #c61360;
 width: 61.8%;
 } */
 
-.close-button {
-float: right;
-border-style: dashed;
-border-color: #c61360;
-cursor: pointer;
+/* Close button inside the displays */
+/* Close button inside the displays */
+.close-button, #more-info {
+    font-size: var(--medium);
+    background: #000000; /* Black background */
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 5px; /* Slightly rounded corners */
+    color: #00ff00; /* Retro green color */
+    padding: 10px 20px; /* Padding for the button */
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); /* Green glowing shadow */
+    transition: background 0.3s, transform 0.1s, box-shadow 0.1s; /* Smooth transitions */
+    text-align: center;
+    text-transform: uppercase; /* Uppercase text for a digital look */
 }
 
-.more-info {
-    cursor: pointer;
+.close-button:hover, #more-info:hover {
+    background: #1a1a1a; /* Slightly lighter black on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.75); /* Enhanced glow on hover */
+}
+
+.close-button:active, #more-info:active {
+    background: #333333; /* Even lighter black on active */
+    transform: translateY(0); /* Return to original position on click */
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3); /* Subtle glow on active */
+}
+
+.close-button:focus:not(:focus-visible), #more-info:focus:not(:focus-visible) {
+    outline: none; /* Remove focus outline */
+}
+
+#more-info {
+    z-index: 4;
+    font-size: var(--small);
+    text-shadow: 0 0 5px rgba(51, 204, 51, 0.7), 0 0 10px rgba(51, 204, 51, 0.6), 0 0 20px rgba(51, 204, 51, 0.5), 
+             0 0 30px rgba(232, 222, 222, 0.4), 0 0 40px rgba(232, 222, 222, 0.3), 0 0 50px rgba(232, 222, 222, 0.2), 
+             0 0 60px rgba(232, 222, 222, 0.1), 0 0 70px rgba(232, 222, 222, 0.1); /* Glowing effect with opacity */
 }
 /*Buttons*/
 /*Universal 3d button style */
-.pushable {
-    font-size: clamp(1rem, 2.5vw, 5rem);
+
+.pushable {    
     position: relative;
     background: transparent;
     border: none;
     padding: 0;
     cursor: pointer;
-  }
-  .shadow {
+}
+
+.shadow {
     position: absolute;
     top: 0;
     left: 0;
@@ -336,44 +388,52 @@ cursor: pointer;
     border-radius: 12px;
     background: hsl(0deg 0% 0% / 0.25);
     transform: translateY(2px);
-  }
-  .edge {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Enhance shadow for 3D effect */
+}
+
+.edge {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border-radius: 12px;
-    background: hsl(340deg 100% 32%);
-  }
-  .front {
+    background: linear-gradient(145deg, #b0c4de, #5e7183); /* Metallic gradient */
+}
+
+.front {
+    font-size: var(--medium);
     display: block;
     position: relative;
     padding: 12px 42px;
     border-radius: 12px;
     color: white;
-    background: hsl(345deg 100% 47%);
+    background: linear-gradient(145deg, #dcdcdc, #a9a9a9); /* Metallic gradient */
     transform: translateY(-4px);
-  }
-  
-  .pushable:hover .front {
-    transform: translateY(-6px);
-  }
-  .pushable:hover .shadow {
-    transform: translateY(4px);
-  }
-  .pushable:active .front {
-    transform: translateY(-2px);
-  }
-  .pushable:active .shadow {
-    transform: translateY(1px);
-  }
-  
-  .pushable:focus:not(:focus-visible) {
-    outline: none;
-  }
-  /*Universal 3d button style end*/
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.5); /* Metallic glow effect */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
 
-  #search-button.front {
-    border-radius: 50%;
-  };
+.pushable:hover .front {
+    transform: translateY(-6px);
+    box-shadow: 0 0 20px rgba(192, 192, 192, 0.75); /* Increase glow on hover */
+}
+
+.pushable:hover .shadow {
+    transform: translateY(4px);
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+    box-shadow: 0 0 5px rgba(192, 192, 192, 0.3); /* Reduce glow on active */
+}
+
+.pushable:active .shadow {
+    transform: translateY(1px);
+}
+
+.pushable:focus:not(:focus-visible) {
+    outline: none;
+}
+  /*Universal 3d button style end*/
+  
