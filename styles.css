@@ -15,9 +15,9 @@ footer, header, hgroup, main, menu, nav, section {
 
 :root {
     font-size: 16px;
-    --small: clamp(1rem, 2vw, 3rem);
-    --medium: clamp(1.5rem, 3vw, 4.5rem);
-    --large: clamp(2.25rem, 4.5vw, 6.75rem);
+    --small: clamp(1rem, (1rem + 0.5vw), 3rem);
+    --medium: clamp(1.5rem, (1rem + 1vw), 4.5rem);
+    --large: clamp(2.25rem, (1rem + 2vw), 6.75rem);
     --xlarge: clamp(3.375rem, 6.75vw, 10.125rem);
 }
 
@@ -81,7 +81,7 @@ h2 {
 .spacecraft-interior {
     position: absolute;
     bottom: 0;
-    height: 38.2dvh;
+    height: 32dvh;
     width: 100dvw;
     display:flex;
     flex-direction: column;
@@ -93,31 +93,38 @@ h2 {
     z-index: 3;
 }
 #distance-to-sun {
-    position: relative;
-    /* bottom: 0; */
+    /* position: absolute; */
+    /* bottom: 10%; */
+   transform: translateY(3px); 
     width: 50dvw;
     padding: 0.5rem;
     z-index: 4;
+    border-radius: 50px 50px 0px 0px; 
 }
 
 #info-square {
-    position: relative;
+    /* position: relative; */
     /* top: -18%; */
+    /* transform: translateY(-100%); */
     width: 61.8dvw;
+    /* height: 5rem; */
     /* height: auto; */
     z-index: 3;
     display: flex;
     align-items: center;
     justify-content: space-between;
     /* flex-direction: row;     */
-    /* padding: 1rem; */
+    padding: 0rem 1rem 0rem 1rem;
     /* margin: 2%; */
+    border-radius: 50px 50px 5px 5px; 
 }
 
 #distance-to-sun, #info-square {
+    position: relative;
+    top: -30%;
     color: #00ff00;
     /* padding: 1.5vh 2.5vw; */
-    border-radius: 50px 50px 5px 5px; 
+    /* border-radius: 50px 50px 5px 5px;  */
     background: #000000;
     border: 3px solid #ffffff;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
@@ -151,13 +158,16 @@ h2 {
 
 #search-container {
     position: relative;
-    width: 61.8vw;
+    top: -30%;
+    width: 61.8dvw;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     justify-content: space-between;
     z-index: 4;
+    margin-bottom: auto;
+    margin-top: auto;
 }
 
 #search-error, .modal {
@@ -166,7 +176,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 40vw;
-    max-height: 80vh;
+    max-height: 80%;
     overflow: auto;
     padding: 10%;
     border-radius: 5px;
@@ -386,10 +396,11 @@ background: linear-gradient(145deg, #b0c4de, #5e7183);
 }
 
 .front {
-font-size: var(–medium);
+font-size: var(--medium);
 display: block;
 position: relative;
-padding: 12px 42px;
+width: 10vw;
+padding: 1rem;
 border-radius: 12px;
 color: white;
 background: linear-gradient(145deg, #dcdcdc, #a9a9a9);
