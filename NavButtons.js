@@ -5,7 +5,7 @@ export function updateNavigationButtons(bodies, currentIndex) {
     const nextCelestial = bodies[(currentIndex + 1) % bodies.length];
     const searchError = document.getElementById('search-error');
 
-    // Adjust button text and disable it if at the bounds
+    // Adjust button text and error message if at the bounds
     if (currentIndex === 0) {
         prevBtn.innerHTML = `
         <button class="pushable" id="prev">

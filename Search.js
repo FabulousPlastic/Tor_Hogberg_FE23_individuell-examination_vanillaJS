@@ -11,7 +11,7 @@ export function performSearch(bodies) {
         searchInput.value = '';
         return;
     }
-
+sqw
     // Regular search processing
     const matchingIndices = bodies.map((body, index) => 
         body.name.toLowerCase().includes(searchText) || 
@@ -30,5 +30,4 @@ export function performSearch(bodies) {
         }, 3000);
     }
     searchInput.value = '';
-
 }

@@ -25,7 +25,7 @@ export function scrollToPlanet(index, targetDistance) {
 
     // Settings for animation speed
     const minDuration = 5000; // Minimum duration in milliseconds
-    const maxSpeed = 8; // Maximum pixels scrolled per millisecond
+    const maxSpeed = 5; // Maximum pixels scrolled per millisecond
     
     const requiredDuration = Math.abs(distanceToScroll) / maxSpeed;
     const finalDuration = Math.max(requiredDuration, minDuration); 
@@ -39,14 +39,6 @@ export function scrollToPlanet(index, targetDistance) {
     function easeInOutQuad(t) {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
-    // Custom ease-in-out function: accelerates and then decelerates
-    // function customEaseInOut(t, accel, decel) {
-    //     if (t < 0.5) {
-    //         return Math.pow(t * 2, accel) / 2;
-    //     } else {
-    //         return 1 - Math.pow((1 - t) * 2, decel) / 2;
-    //     }
-    // }
 
     //Synchronizes scrolling and distance counter
     function scrollStep(timestamp) {
@@ -56,7 +48,6 @@ export function scrollToPlanet(index, targetDistance) {
 
         // Apply the easing function to the progress
         const easedProgress = easeInOutQuad(progress);
-        // const easedProgress = customEaseInOut(progress, 2, 2);
 
         spaceView.scrollLeft = startLeft + distanceToScroll * easedProgress;
 
@@ -77,7 +68,7 @@ export function scrollToPlanet(index, targetDistance) {
     }
 
     if (scrollAnimationFrameId) {
-        cancelAnimationFrame(scrollAnimationFrameId); // Ensure only scroll-related animations are cancelled
+        cancelAnimationFrame(scrollAnimationFrameId);
     }
     scrollAnimationFrameId = requestAnimationFrame(scrollStep);
 }

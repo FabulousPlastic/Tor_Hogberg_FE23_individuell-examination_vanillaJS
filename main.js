@@ -71,7 +71,7 @@ function handleScroll() {
     }
     updateParallax();
 }
-//Keeps track of what planet is in view
+//Keeps track of what planet is closest to/in viewport
 function findClosestPlanet(centerOfViewport) {
     if (isResizing) {
         return
@@ -86,7 +86,7 @@ function scrollToTargetPlanet(index) {
     const targetDistance = bodies[index].distance;
     scrollToPlanet(index, targetDistance);
 }
-//Debounce for window resize
+//Debounce for window resize (or else whre neecded)
 function debounce(func, delay) {
     let debounceTimer;
     return function() {
